@@ -28,8 +28,8 @@ public class PruebaTest   {
         List<Tarjeta> tarjetas= new ArrayList<>();
         tarjetas.add(tarjeta);
         cliente.setTarjeta(tarjetas);
-        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.of(2022,12,1),LocalDate.of(2023,7,1),tarjeta,0.05);
-        DescProducto descProducto= new DescProducto(LocalDate.of(2022,12,1),LocalDate.of(2023,7,1),marca,0.08);
+        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
+        DescProducto descProducto= new DescProducto(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),marca,0.08);
         List<Promocion> promociones = new ArrayList<>();
         promociones.add(descTarjeta);
         promociones.add(descProducto);
@@ -65,8 +65,8 @@ public class PruebaTest   {
         List<Tarjeta> tarjetas= new ArrayList<>();
         tarjetas.add(tarjeta);
         cliente.setTarjeta(tarjetas);
-        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.of(2022,12,1),LocalDate.of(2023,7,1),tarjeta,0.05);
-        DescProducto descProducto= new DescProducto(LocalDate.of(2022,12,1),LocalDate.of(2024,7,1),marca,0.08);
+        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
+        DescProducto descProducto= new DescProducto(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(1),marca,0.08);
         List<Promocion> promociones = new ArrayList<>();
         promociones.add(descTarjeta);
         promociones.add(descProducto);
@@ -102,8 +102,8 @@ public class PruebaTest   {
         List<Tarjeta> tarjetas= new ArrayList<>();
         tarjetas.add(tarjeta);
         cliente.setTarjeta(tarjetas);
-        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.of(2022,12,1),LocalDate.of(2024,7,1),tarjeta,0.05);
-        DescProducto descProducto= new DescProducto(LocalDate.of(2022,12,1),LocalDate.of(2023,7,1),marca,0.08);
+        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
+        DescProducto descProducto= new DescProducto(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),marca,0.08);
         List<Promocion> promociones = new ArrayList<>();
         promociones.add(descTarjeta);
         promociones.add(descProducto);
@@ -139,8 +139,8 @@ public class PruebaTest   {
         List<Tarjeta> tarjetas= new ArrayList<>();
         tarjetas.add(tarjeta);
         cliente.setTarjeta(tarjetas);
-        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.of(2022,12,1),LocalDate.of(2024,7,1),tarjeta,0.05);
-        DescProducto descProducto= new DescProducto(LocalDate.of(2022,12,1),LocalDate.of(2024,7,1),marca,0.08);
+        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
+        DescProducto descProducto= new DescProducto(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),marca,0.08);
         List<Promocion> promociones = new ArrayList<>();
         promociones.add(descTarjeta);
         promociones.add(descProducto);
@@ -176,8 +176,8 @@ public class PruebaTest   {
         List<Tarjeta> tarjetas= new ArrayList<>();
         tarjetas.add(tarjeta);
         cliente.setTarjeta(tarjetas);
-        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.of(2022,12,1),LocalDate.of(2024,7,1),tarjeta,0.05);
-        DescProducto descProducto= new DescProducto(LocalDate.of(2022,12,1),LocalDate.of(2024,7,1),marca,0.08);
+        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
+        DescProducto descProducto= new DescProducto(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),marca,0.08);
         List<Promocion> promociones = new ArrayList<>();
         promociones.add(descTarjeta);
         promociones.add(descProducto);
@@ -236,7 +236,7 @@ public class PruebaTest   {
 
         // Ejercitación
         try{
-            DescProducto descProducto= new DescProducto(LocalDate.of(2025,12,1),LocalDate.of(2023,7,1),new Marca("Si"),0.08);
+            DescProducto descProducto= new DescProducto(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(-2),new Marca("Si"),0.08);
 
         }catch(DateException e){
             saltoExcepcion = true;

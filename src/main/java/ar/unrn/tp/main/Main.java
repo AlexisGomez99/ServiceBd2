@@ -3,12 +3,14 @@ package ar.unrn.tp.main;
 
 import ar.unrn.tp.api.CategoriaService;
 import ar.unrn.tp.api.ClienteService;
+import ar.unrn.tp.api.MarcaService;
 import ar.unrn.tp.api.ProductoService;
 import ar.unrn.tp.excepciones.EmailException;
 import ar.unrn.tp.excepciones.NotNullException;
 import ar.unrn.tp.excepciones.NotNumException;
 import ar.unrn.tp.jpa.servicios.Categorias;
 import ar.unrn.tp.jpa.servicios.Clientes;
+import ar.unrn.tp.jpa.servicios.Marcas;
 import ar.unrn.tp.jpa.servicios.Productos;
 import ar.unrn.tp.modelo.Categoria;
 import ar.unrn.tp.modelo.Tarjeta;
@@ -60,7 +62,15 @@ public class Main {
         }
 
         ProductoService productos= new Productos();
+        MarcaService marcas= new Marcas();
+        marcas.crearMarca("Nike");
+        marcas.crearMarca("Adiddas");
+        marcas.crearMarca("Puma");
+        productos.crearProducto("1","Buena calidad remera",500, 7L,13L);
+        productos.crearProducto("2","Buena calidad zapatillas",300, 10L,13L);
 
-        productos.crearProducto("2323","Buena calidad remera",500, 7L,"Nike");
+
+
+        productos.modificarProducto(16L,"3","Remera",500, 8L,15L);
     }
 }

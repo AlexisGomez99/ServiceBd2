@@ -22,12 +22,13 @@ public class Productos implements ProductoService {
 
 
     @Override
-    public void crearProducto(String codigo, String descripcion, double precio, Long IdCategoría, String marca) {
+    public void crearProducto(String codigo, String descripcion, double precio, Long IdCategoría, Long IdMarca) {
         inTransactionExecute((em) -> {
             Categoria categoria = em.getReference(Categoria.class,IdCategoría);
+            Marca marca = em.getReference(Marca.class,IdMarca);
             Producto producto= null;
             try {
-                producto = new Producto(codigo,descripcion,precio, categoria,new Marca(marca));
+                producto = new Producto(codigo,descripcion,precio, categoria,marca);
             } catch (NotNullException e) {
                 throw new RuntimeException(e);
             }
@@ -37,7 +38,7 @@ public class Productos implements ProductoService {
     }
 
     @Override
-    public void modificarProducto(Long idProducto, String codigo, String descripcion, double precio, Long IdCategoría, String marca) {
+    public void modificarProducto(Long idProducto, String codigo, String descripcion, double precio, Long IdCategoría, Long IdMarca) {
         inTransactionExecute((em) -> {
 
             Producto producto = em.getReference(Producto.class, idProducto);
@@ -51,12 +52,13 @@ public class Productos implements ProductoService {
 
             Categoria categoria= em.getReference(Categoria.class,IdCategoría);
             if (!categoria.equals(producto.getCategoria()) && IdCategoría !=null){
-                Categoria nuevaCategoria= em.getReference(Categoria.class,IdCategoría);
-                producto.setCategoria(nuevaCategoria);
+                producto.setCategoria(categoria);
             }
 
-            if (!producto.getMarca().getNombre().equalsIgnoreCase(marca) && marca != null)
-                producto.setMarca(new Marca(marca));
+            Marca marca= em.getReference(Marca.class,IdMarca);
+            if (!marca.equals(producto.getCategoria()) && IdCategoría !=null){
+                producto.setMarca(marca);
+            }
 
             em.persist(producto);
         });

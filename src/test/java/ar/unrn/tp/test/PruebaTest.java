@@ -18,16 +18,14 @@ public class PruebaTest   {
 
         //Inicializacion
         Marca marca = new Marca("Nike");
-        Producto prod1= new Producto(1, "zapatillas", Categoria.CALZADO, 500, marca);
-        Producto prod2= new Producto(2, "Buzo", Categoria.ROPA_DEPORTIVA, 250, marca);
-        Producto prod3= new Producto(3, "Shorts", Categoria.ROPA_DEPORTIVA, 250, marca);
+        Producto prod1= new Producto("1", "zapatillas", 500,new Categoria("CALZADO"),  marca);
+        Producto prod2= new Producto("2", "Buzo", 250,new Categoria("ROPA_DEPORTIVA"),  marca);
+        Producto prod3= new Producto("3", "Shorts", 250,new Categoria("ROPA_DEPORTIVA"),  marca);
 
-        Tarjeta tarjeta= new Tarjeta(123,"ACTIVA",200000,"Visa");
+        Tarjeta tarjeta= new Tarjeta("123","Visa");
 
-        Cliente cliente = new Cliente(1L,"Alexis","Gomez","42456256","ralexisge@gmail.com");
-        List<Tarjeta> tarjetas= new ArrayList<>();
-        tarjetas.add(tarjeta);
-        cliente.setTarjeta(tarjetas);
+        Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
+        cliente.setTarjeta(tarjeta);
         DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
         DescProducto descProducto= new DescProducto(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),marca,0.08);
         List<Promocion> promociones = new ArrayList<>();
@@ -55,16 +53,15 @@ public class PruebaTest   {
 
         //Inicializacion
         Marca marca = new Marca("Acme");
-        Producto prod1= new Producto(1, "zapatillas", Categoria.CALZADO, 500, marca);
-        Producto prod2= new Producto(2, "Buzo", Categoria.ROPA_DEPORTIVA, 250, marca);
-        Producto prod3= new Producto(3, "Shorts", Categoria.ROPA_DEPORTIVA, 250, marca);
+        Producto prod1= new Producto("1", "zapatillas", 500,new Categoria("CALZADO"),  marca);
+        Producto prod2= new Producto("2", "Buzo", 250,new Categoria("ROPA_DEPORTIVA"),  marca);
+        Producto prod3= new Producto("3", "Shorts", 250,new Categoria("ROPA_DEPORTIVA"),  marca);
 
-        Tarjeta tarjeta= new Tarjeta(123,"ACTIVA",200000,"Visa");
+        Tarjeta tarjeta= new Tarjeta("123","Visa");
 
-        Cliente cliente = new Cliente(1L,"Alexis","Gomez","42456256","ralexisge@gmail.com");
-        List<Tarjeta> tarjetas= new ArrayList<>();
-        tarjetas.add(tarjeta);
-        cliente.setTarjeta(tarjetas);
+        Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
+
+        cliente.setTarjeta(tarjeta);
         DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
         DescProducto descProducto= new DescProducto(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(1),marca,0.08);
         List<Promocion> promociones = new ArrayList<>();
@@ -92,16 +89,15 @@ public class PruebaTest   {
 
         //Inicializacion
         Marca marca = new Marca("Acme");
-        Producto prod1= new Producto(1, "zapatillas", Categoria.CALZADO, 500, marca);
-        Producto prod2= new Producto(2, "Buzo", Categoria.ROPA_DEPORTIVA, 250, marca);
-        Producto prod3= new Producto(3, "Shorts", Categoria.ROPA_DEPORTIVA, 250, marca);
+        Producto prod1= new Producto("1", "zapatillas", 500,new Categoria("CALZADO"),  marca);
+        Producto prod2= new Producto("2", "Buzo", 250,new Categoria("ROPA_DEPORTIVA"),  marca);
+        Producto prod3= new Producto("3", "Shorts", 250,new Categoria("ROPA_DEPORTIVA"),  marca);
 
-        Tarjeta tarjeta= new Tarjeta(123,"ACTIVA",200000,"Visa");
+        Tarjeta tarjeta= new Tarjeta("123","Visa");
 
-        Cliente cliente = new Cliente(1L,"Alexis","Gomez","42456256","ralexisge@gmail.com");
-        List<Tarjeta> tarjetas= new ArrayList<>();
-        tarjetas.add(tarjeta);
-        cliente.setTarjeta(tarjetas);
+        Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
+
+        cliente.setTarjeta(tarjeta);
         DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
         DescProducto descProducto= new DescProducto(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),marca,0.08);
         List<Promocion> promociones = new ArrayList<>();
@@ -129,16 +125,15 @@ public class PruebaTest   {
 
         //Inicializacion
         Marca marca = new Marca("Comarca");
-        Producto prod1= new Producto(1, "zapatillas", Categoria.CALZADO, 500, marca);
-        Producto prod2= new Producto(2, "Buzo", Categoria.ROPA_DEPORTIVA, 250, marca);
-        Producto prod3= new Producto(3, "Shorts", Categoria.ROPA_DEPORTIVA, 250, marca);
+        Producto prod1= new Producto("1", "zapatillas", 500,new Categoria("CALZADO"),  marca);
+        Producto prod2= new Producto("2", "Buzo", 250,new Categoria("ROPA_DEPORTIVA"),  marca);
+        Producto prod3= new Producto("3", "Shorts", 250,new Categoria("ROPA_DEPORTIVA"),  marca);
 
-        Tarjeta tarjeta= new Tarjeta(123,"ACTIVA",200000,"MemeCard");
+        Tarjeta tarjeta= new Tarjeta("123","MemeCard");
 
-        Cliente cliente = new Cliente(1L,"Alexis","Gomez","42456256","ralexisge@gmail.com");
-        List<Tarjeta> tarjetas= new ArrayList<>();
-        tarjetas.add(tarjeta);
-        cliente.setTarjeta(tarjetas);
+        Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
+
+        cliente.setTarjeta(tarjeta);
         DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
         DescProducto descProducto= new DescProducto(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),marca,0.08);
         List<Promocion> promociones = new ArrayList<>();
@@ -166,16 +161,15 @@ public class PruebaTest   {
 
         //Inicializacion
         Marca marca = new Marca("Comarca");
-        Producto prod1= new Producto(1, "zapatillas", Categoria.CALZADO, 500, marca);
-        Producto prod2= new Producto(2, "Buzo", Categoria.ROPA_DEPORTIVA, 250, marca);
-        Producto prod3= new Producto(3, "Shorts", Categoria.ROPA_DEPORTIVA, 250, marca);
+        Producto prod1= new Producto("1", "zapatillas", 500,new Categoria("CALZADO"),  marca);
+        Producto prod2= new Producto("2", "Buzo", 250,new Categoria("ROPA_DEPORTIVA"),  marca);
+        Producto prod3= new Producto("3", "Shorts", 250,new Categoria("ROPA_DEPORTIVA"),  marca);
 
-        Tarjeta tarjeta= new Tarjeta(123,"ACTIVA",200000,"MemeCard");
+        Tarjeta tarjeta= new Tarjeta("123","MemeCard");
 
-        Cliente cliente = new Cliente(1L,"Alexis","Gomez","42456256","ralexisge@gmail.com");
-        List<Tarjeta> tarjetas= new ArrayList<>();
-        tarjetas.add(tarjeta);
-        cliente.setTarjeta(tarjetas);
+        Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
+
+        cliente.setTarjeta(tarjeta);
         DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
         DescProducto descProducto= new DescProducto(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),marca,0.08);
         List<Promocion> promociones = new ArrayList<>();
@@ -205,7 +199,7 @@ public class PruebaTest   {
 
         // Ejercitación
         try{
-            new Producto(1, "Es dinamita", Categoria.CALZADO, -250.0, acme);
+            new Producto("1", "Es dinamita",-250.0,new Categoria("CALZADO"),  acme);
         }catch( NotNullException e){
             saltoExcepcion = true;
         }
@@ -221,7 +215,7 @@ public class PruebaTest   {
 
         // Ejercitación
         try{
-            new Cliente(1L,"Alexis",null,null,null);
+            new Cliente("Alexis",null,null,null);
         }catch(NotNullException | NotNumException | EmailException e){
             saltoExcepcion = true;
         }

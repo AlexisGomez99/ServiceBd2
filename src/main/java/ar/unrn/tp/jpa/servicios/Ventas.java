@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 public class Ventas implements VentaService {
 
 
-    private EntityManagerFactory emf;
+    private final EntityManagerFactory emf;
 
     public Ventas() {
         emf = Persistence.createEntityManagerFactory("objectdb:myDbTestFile.tmp;drop");

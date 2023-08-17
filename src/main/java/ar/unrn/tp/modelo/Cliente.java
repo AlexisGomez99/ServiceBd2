@@ -4,6 +4,7 @@ import ar.unrn.tp.excepciones.EmailException;
 import ar.unrn.tp.excepciones.NotNullException;
 import ar.unrn.tp.excepciones.NotNumException;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Getter
+@Setter
 @Entity
 public class Cliente {
     @Id
@@ -25,7 +27,7 @@ public class Cliente {
     @JoinColumn(name = "id_cliente")
     private List<Tarjeta> tarjetas;
 
-    public Cliente(Long idCliente, String nombre, String apellido, String dni, String email) throws NotNullException, NotNumException, EmailException {
+    public Cliente(String nombre, String apellido, String dni, String email) throws NotNullException, NotNumException, EmailException {
         Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         if (nombre == null)
             throw new NotNullException("nombre");
@@ -46,7 +48,6 @@ public class Cliente {
         this.apellido = apellido;
         this.dni = dni;
         this.email = email;
-        this.id= idCliente;
     }
     public void agregarTarjeta(Tarjeta tarjeta){
         this.tarjetas.add(tarjeta);
@@ -63,7 +64,12 @@ public class Cliente {
             return false;
         }
     }
-    public void setTarjeta(List<Tarjeta> list) {
-        this.tarjetas=list;
+    public void setTarjeta(Tarjeta tarjeta) {
+        if(tarjetas!=null) {
+            agregarTarjeta(tarjeta);
+        }else {
+         this.tarjetas = new ArrayList<>();
+         agregarTarjeta(tarjeta);
+        }
     }
 }

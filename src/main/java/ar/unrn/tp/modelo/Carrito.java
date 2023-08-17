@@ -37,18 +37,20 @@ public class Carrito {
     }
 
     private double aplicarDescuento() throws NotNullException {
-        if (tarjeta == null)
-            throw new NotNullException("Tarjeta");
+        ServicioTarjetaWeb servicio= new ServicioTarjetaWeb();
         double total= 0;
-        for (Promocion prom : this.promocions){
-            total = total + prom.aplicarDescuento(this.productoList,this.tarjeta.getNombre());
+        if (servicio.esValida(tarjeta)){
+            total = this.promocions.stream()
+                    .mapToDouble(prom -> prom.aplicarDescuento(this.productoList, this.tarjeta.getNombre()))
+                    .sum();
+        }else {
+            throw new NotNullException("Tarjeta");
         }
         return total;
     }
 
     public Venta comprarListado() throws NotNullException {
         double total= this.calcularDescuento();
-        tarjeta.descontar(this.calcularDescuento());
         Venta venta= new Venta(LocalDate.now(), this.cliente,this.productoList,total);
         return venta;
     }

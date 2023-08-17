@@ -8,13 +8,13 @@ import java.util.Objects;
 @Getter
 @Setter
 public class ProductoVendido {
-    private int codigo;
+    private String codigo;
     private String descripcion;
     private Categoria categoria;
     private double precio;
     private Marca marca;
 
-    public ProductoVendido(int codigo, String descripcion, Categoria categoria, double precio, Marca marca) {
+    public ProductoVendido(String codigo, String descripcion, Categoria categoria, double precio, Marca marca) {
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.categoria = categoria;

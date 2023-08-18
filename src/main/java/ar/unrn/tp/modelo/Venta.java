@@ -3,16 +3,21 @@ package ar.unrn.tp.modelo;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+@Entity
 @Getter
 @Setter
 public class Venta {
+    @Id
+    @GeneratedValue
+    private Long id;
     private LocalDate fechaVenta;
     private Cliente cliente;
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<ProductoVendido> listaProductos;
     private double totalPagado;
 

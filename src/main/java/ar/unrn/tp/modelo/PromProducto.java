@@ -2,14 +2,15 @@ package ar.unrn.tp.modelo;
 
 import ar.unrn.tp.excepciones.DateException;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 
 import java.util.List;
+@Entity
+public class PromProducto extends Promocion{
+    private String marca;
 
-public class DescProducto extends Promocion{
-    private Marca marca;
-
-    public DescProducto(LocalDate fechaInicio, LocalDate fechaFin, Marca marca, double descuento) throws DateException {
+    public PromProducto(String marca, LocalDate fechaInicio, LocalDate fechaFin, double descuento) throws DateException {
         super(fechaInicio,fechaFin,descuento);
         this.marca = marca;
 

@@ -9,12 +9,12 @@ public interface VentaService {
     // - la lista de productos no debe estar vacía
     // - La tarjeta debe pertenecer al cliente
 
-    void realizarVenta(Long idCliente, List<Long> productos, Long idTarjeta);
+    void realizarVenta(Long idCliente, List<Long> productos, Long idTarjeta) throws Exception;
 
     //Devuelve el monto total aplicando los descuentos al día de la fecha
     // validar que no llegue una lista vacía y la tarjeta exista
 
-    float calcularMonto(List<Long> productos, Long idTarjeta);
+    double calcularMonto(List<Long> productos, Long idTarjeta) throws Exception;
 
     //Devuelve todas las ventas realizadas
 

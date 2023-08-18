@@ -3,11 +3,17 @@ package ar.unrn.tp.modelo;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
-
+@Entity
 @Getter
 @Setter
 public class ProductoVendido {
+    @Id
+    @GeneratedValue
+    private Long id;
     private String codigo;
     private String descripcion;
     private Categoria categoria;

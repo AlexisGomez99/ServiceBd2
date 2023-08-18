@@ -26,11 +26,11 @@ public class PruebaTest   {
 
         Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
         cliente.setTarjeta(tarjeta);
-        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
-        DescProducto descProducto= new DescProducto(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),marca,0.08);
+        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.05);
+        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.08);
         List<Promocion> promociones = new ArrayList<>();
-        promociones.add(descTarjeta);
-        promociones.add(descProducto);
+        promociones.add(promTarjeta);
+        promociones.add(promProducto);
 
         Carrito carrito= new Carrito(promociones);
         carrito.asociarCliente(cliente);
@@ -62,11 +62,11 @@ public class PruebaTest   {
         Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
 
         cliente.setTarjeta(tarjeta);
-        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
-        DescProducto descProducto= new DescProducto(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(1),marca,0.08);
+        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.05);
+        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(1),0.08);
         List<Promocion> promociones = new ArrayList<>();
-        promociones.add(descTarjeta);
-        promociones.add(descProducto);
+        promociones.add(promTarjeta);
+        promociones.add(promProducto);
 
         Carrito carrito= new Carrito(promociones);
         carrito.asociarCliente(cliente);
@@ -98,12 +98,11 @@ public class PruebaTest   {
         Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
 
         cliente.setTarjeta(tarjeta);
-        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
-        DescProducto descProducto= new DescProducto(LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),marca,0.08);
+        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.05);
+        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.08);
         List<Promocion> promociones = new ArrayList<>();
-        promociones.add(descTarjeta);
-        promociones.add(descProducto);
-
+        promociones.add(promTarjeta);
+        promociones.add(promProducto);
         Carrito carrito= new Carrito(promociones);
         carrito.asociarCliente(cliente);
         carrito.asociarTarjeta(tarjeta);
@@ -134,11 +133,11 @@ public class PruebaTest   {
         Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
 
         cliente.setTarjeta(tarjeta);
-        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
-        DescProducto descProducto= new DescProducto(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),marca,0.08);
+        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.05);
+        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.08);
         List<Promocion> promociones = new ArrayList<>();
-        promociones.add(descTarjeta);
-        promociones.add(descProducto);
+        promociones.add(promTarjeta);
+        promociones.add(promProducto);
 
         Carrito carrito= new Carrito(promociones);
         carrito.asociarCliente(cliente);
@@ -170,11 +169,11 @@ public class PruebaTest   {
         Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
 
         cliente.setTarjeta(tarjeta);
-        DescTarjeta descTarjeta= new DescTarjeta(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),tarjeta,0.05);
-        DescProducto descProducto= new DescProducto(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),marca,0.08);
+        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.05);
+        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.08);
         List<Promocion> promociones = new ArrayList<>();
-        promociones.add(descTarjeta);
-        promociones.add(descProducto);
+        promociones.add(promTarjeta);
+        promociones.add(promProducto);
 
         Carrito carrito= new Carrito(promociones);
         carrito.asociarCliente(cliente);
@@ -230,7 +229,7 @@ public class PruebaTest   {
 
         // Ejercitación
         try{
-            DescProducto descProducto= new DescProducto(LocalDate.now().minusDays(1),LocalDate.now().plusMonths(-2),new Marca("Si"),0.08);
+            PromProducto promProducto = new PromProducto(new Marca("Si").getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(-2),0.08);
 
         }catch(DateException e){
             saltoExcepcion = true;

@@ -1,17 +1,21 @@
 package ar.unrn.tp.modelo;
 
 import ar.unrn.tp.excepciones.DateException;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+@Entity
+@Getter
+@Setter
+public class PromTarjeta extends Promocion{
 
-public class DescTarjeta extends Promocion{
-
-    private Tarjeta tarjeta;
+    private String tarjeta;
 
 
-    public DescTarjeta(LocalDate fechaInicio, LocalDate fechaFin, Tarjeta tarjeta, double descuento) throws DateException {
+    public PromTarjeta(String tarjeta, LocalDate fechaInicio, LocalDate fechaFin, double descuento) throws DateException {
         super(fechaInicio,fechaFin,descuento);
         this.tarjeta = tarjeta;
     }
@@ -21,7 +25,7 @@ public class DescTarjeta extends Promocion{
     public double aplicarDescuento(List<Producto> productos, String tarjeta) {
         LocalDate hoy= LocalDate.now();
         double total=0;
-        if (hoy.isBefore(this.fechaFin) && hoy.isAfter(this.fechaInicio) && this.tarjeta.getNombre().equalsIgnoreCase(tarjeta)){
+        if (hoy.isBefore(this.fechaFin) && hoy.isAfter(this.fechaInicio) && this.tarjeta.equalsIgnoreCase(tarjeta)){
             total = getTotal(productos);
             total = total * this.descuento;
         }

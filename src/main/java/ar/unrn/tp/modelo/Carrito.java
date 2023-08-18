@@ -28,6 +28,9 @@ public class Carrito {
     public void agregarProducto(Producto prod){
         productoList.add(prod);
     }
+    public void agregarProductos(List<Producto> prods){
+        this.productoList=prods;
+    }
 
 
 
@@ -43,6 +46,7 @@ public class Carrito {
             total = this.promocions.stream()
                     .mapToDouble(prom -> prom.aplicarDescuento(this.productoList, this.tarjeta.getNombre()))
                     .sum();
+
         }else {
             throw new NotNullException("Tarjeta");
         }

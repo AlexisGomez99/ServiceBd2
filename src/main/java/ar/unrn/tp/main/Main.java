@@ -1,25 +1,21 @@
 package ar.unrn.tp.main;
 
 
-import ar.unrn.tp.api.CategoriaService;
-import ar.unrn.tp.api.ClienteService;
-import ar.unrn.tp.api.MarcaService;
-import ar.unrn.tp.api.ProductoService;
+import ar.unrn.tp.api.*;
 import ar.unrn.tp.excepciones.EmailException;
 import ar.unrn.tp.excepciones.NotNullException;
 import ar.unrn.tp.excepciones.NotNumException;
-import ar.unrn.tp.jpa.servicios.Categorias;
-import ar.unrn.tp.jpa.servicios.Clientes;
-import ar.unrn.tp.jpa.servicios.Marcas;
-import ar.unrn.tp.jpa.servicios.Productos;
+import ar.unrn.tp.jpa.servicios.*;
 import ar.unrn.tp.modelo.Categoria;
+import ar.unrn.tp.modelo.Promocion;
 import ar.unrn.tp.modelo.Tarjeta;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws EmailException, NotNullException, NotNumException {
+    public static void main(String[] args) throws Exception {
         ClienteService clientes= new Clientes();
         List<Tarjeta> tarjetas;
 
@@ -68,9 +64,24 @@ public class Main {
         marcas.crearMarca("Puma");
         productos.crearProducto("1","Buena calidad remera",500, 7L,13L);
         productos.crearProducto("2","Buena calidad zapatillas",300, 10L,13L);
-
-
-
         productos.modificarProducto(16L,"3","Remera",500, 8L,15L);
+
+        DescuentoService descuentos = new Descuentos();
+
+        descuentos.crearDescuento("Nike", LocalDate.now().minusDays(3),LocalDate.now().plusMonths(1),0.05);
+        descuentos.crearDescuentoSobreTotal("Visa", LocalDate.now().minusDays(3),LocalDate.now().plusMonths(1),0.08);
+
+        VentaService ventas= new Ventas();
+        List<Long> prods= new ArrayList<>();
+        prods.add(16L);
+        prods.add(17L);
+        ventas.realizarVenta(1L,prods,3L);
+
+        //Como se maneja los id cuando los recupero
+        //Cuando recupero las promociones no puedo usar aplicardescuentos en el main, solo me deja en el carrito
+        //Como manejar la herencia de descuentos
+        //Cuando se hereda se crean las tablas extra
+        //
+
     }
 }

@@ -24,7 +24,6 @@ public class Cliente {
     private String dni;
     private String email;
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente")
     private List<Tarjeta> tarjetas;
 
     public Cliente(String nombre, String apellido, String dni, String email) throws NotNullException, NotNumException, EmailException {

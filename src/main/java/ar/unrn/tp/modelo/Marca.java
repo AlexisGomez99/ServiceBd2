@@ -21,16 +21,4 @@ public class Marca {
         this.nombre = nombre;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Marca)) return false;
-        Marca marca = (Marca) o;
-        return Objects.equals(getNombre(), marca.getNombre());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getNombre());
-    }
 }

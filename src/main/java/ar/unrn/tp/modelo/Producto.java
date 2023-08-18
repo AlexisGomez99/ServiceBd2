@@ -7,9 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-@Entity
 @Setter
 @Getter
+@Entity
 public class Producto {
 
     @Id
@@ -38,10 +38,9 @@ public class Producto {
         this.marca = marca;
     }
 
-    public double verificarDescontar(Marca marcaN, double descuento) {
-        LocalDate hoy= LocalDate.now();
+    public double verificarDescontar(String marcaN, double descuento) {
         double desc=0;
-        if(marcaN.equals(this.marca)){
+        if(this.marca.getNombre().equalsIgnoreCase(marcaN)){
             desc = (precio * descuento);
         }
         return desc;

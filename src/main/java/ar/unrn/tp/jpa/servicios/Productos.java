@@ -24,15 +24,18 @@ public class Productos implements ProductoService {
     @Override
     public void crearProducto(String codigo, String descripcion, double precio, Long IdCategoría, Long IdMarca) {
         inTransactionExecute((em) -> {
-            Categoria categoria = em.getReference(Categoria.class,IdCategoría);
-            Marca marca = em.getReference(Marca.class,IdMarca);
+            Categoria categoria = em.find(Categoria.class,IdCategoría);
+            Marca marca = em.find(Marca.class,IdMarca);
             Producto producto= null;
-            try {
-                producto = new Producto(codigo,descripcion,precio, categoria,marca);
-            } catch (NotNullException e) {
-                throw new RuntimeException(e);
+            if (marca != null && categoria != null) {
+                try {
+                    producto = new Producto(codigo, descripcion, precio, categoria, marca);
+                } catch (NotNullException e) {
+                    throw new RuntimeException(e);
+                }
             }
-
+            else
+                System.out.println("La marca o categoria no existe.");
             em.persist(producto);
         });
     }
@@ -41,24 +44,28 @@ public class Productos implements ProductoService {
     public void modificarProducto(Long idProducto, String codigo, String descripcion, double precio, Long IdCategoría, Long IdMarca) {
         inTransactionExecute((em) -> {
 
-            Producto producto = em.getReference(Producto.class, idProducto);
+            Producto producto = em.find(Producto.class, idProducto);
 
-            if (!producto.getCodigo().equalsIgnoreCase(codigo) && codigo != null)
-                producto.setCodigo(codigo);
-            if (!producto.getDescripcion().equalsIgnoreCase(descripcion) && descripcion != null)
-                producto.setDescripcion(descripcion);
-            if ( producto.getPrecio() == precio && precio >0)
-                producto.setPrecio(precio);
+            if (producto!= null) {
+                if (!producto.getCodigo().equalsIgnoreCase(codigo) && codigo != null)
+                    producto.setCodigo(codigo);
+                if (!producto.getDescripcion().equalsIgnoreCase(descripcion) && descripcion != null)
+                    producto.setDescripcion(descripcion);
+                if (producto.getPrecio() == precio && precio > 0)
+                    producto.setPrecio(precio);
 
-            Categoria categoria= em.getReference(Categoria.class,IdCategoría);
-            if (!categoria.equals(producto.getCategoria()) && IdCategoría !=null){
-                producto.setCategoria(categoria);
+                Categoria categoria = em.getReference(Categoria.class, IdCategoría);
+                if (!categoria.equals(producto.getCategoria()) && IdCategoría != null) {
+                    producto.setCategoria(categoria);
+                }
+
+                Marca marca = em.getReference(Marca.class, IdMarca);
+                if (!marca.equals(producto.getCategoria()) && IdCategoría != null) {
+                    producto.setMarca(marca);
+                }
             }
-
-            Marca marca= em.getReference(Marca.class,IdMarca);
-            if (!marca.equals(producto.getCategoria()) && IdCategoría !=null){
-                producto.setMarca(marca);
-            }
+            else
+                System.out.println("El producto no existe");
 
             em.persist(producto);
         });

@@ -43,9 +43,9 @@ public class Clientes implements ClienteService {
     public void modificarCliente(Long idCliente, String nombre,String apellido, String dni, String email) {
         inTransactionExecute((em) -> {
 
-            Cliente cliente = em.getReference(Cliente.class, idCliente);
-
-            if (!cliente.getNombre().equalsIgnoreCase(nombre) && nombre != null)
+            Cliente cliente = em.find(Cliente.class,idCliente);
+            if(cliente != null) {
+                if (!cliente.getNombre().equalsIgnoreCase(nombre) && nombre != null)
                     cliente.setNombre(nombre);
                 if (!cliente.getApellido().equalsIgnoreCase(apellido) && apellido != null)
                     cliente.setApellido(apellido);
@@ -53,11 +53,13 @@ public class Clientes implements ClienteService {
                     cliente.setDni(dni);
                 if (!cliente.getEmail().equalsIgnoreCase(email) && email != null)
                     cliente.setEmail(email);
+                em.persist(cliente);
+            }
+            else
+                System.out.println("El cliente no existe");
 
 
 
-
-            em.persist(cliente);
         });
     }
     @Override
@@ -72,11 +74,14 @@ public class Clientes implements ClienteService {
     public void agregarTarjeta(Long idCliente, String nro, String marca) {
         inTransactionExecute((em) -> {
 
-            Cliente cliente = em.getReference(Cliente.class, idCliente);
-            Tarjeta tarjeta = new Tarjeta(nro,marca);
-
-            cliente.setTarjeta(tarjeta);
-
+            Cliente cliente = em.find(Cliente.class, idCliente);
+            if (cliente != null) {
+                Tarjeta tarjeta = new Tarjeta(nro, marca);
+                cliente.setTarjeta(tarjeta);
+            }
+            else {
+                System.out.println("El cliente no existe");
+            }
 
             em.persist(cliente);
         });

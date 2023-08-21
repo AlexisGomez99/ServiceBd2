@@ -23,4 +23,12 @@ public class Tarjeta {
         this.nombre = nombre;
     }
 
+    public boolean equals(String tarjeta){
+        boolean x= false;
+        if (this.nombre.equalsIgnoreCase(tarjeta))
+            x= true;
+        return x;
+
+    }
+
 }

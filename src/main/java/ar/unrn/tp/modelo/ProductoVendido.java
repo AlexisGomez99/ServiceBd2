@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.Objects;
 @Entity
 @Getter
@@ -16,8 +17,10 @@ public class ProductoVendido {
     private Long id;
     private String codigo;
     private String descripcion;
+    @OneToOne
     private Categoria categoria;
     private double precio;
+    @OneToOne
     private Marca marca;
 
     public ProductoVendido(String codigo, String descripcion, Categoria categoria, double precio, Marca marca) {

@@ -17,13 +17,13 @@ public class PromProducto extends Promocion{
     }
 
     @Override
-    public double aplicarDescuento(List<Producto> productos,String tarjeta) {
+    public double aplicarDescuento(List<Producto> productos, Tarjeta tarjeta) {
         LocalDate hoy= LocalDate.now();
         double total=0;
         for (Producto prod : productos){
 
-            if(hoy.isBefore(this.fechaFin) && hoy.isAfter(this.fechaInicio)){
-                total = total + prod.verificarDescontar(marca,descuento);
+            if(hoy.isBefore(this.fechaFin) && hoy.isAfter(this.fechaInicio) && prod.esDeMarca(marca)){
+                total = total + (prod.getPrecio() * descuento);
             }
         }
         return total;

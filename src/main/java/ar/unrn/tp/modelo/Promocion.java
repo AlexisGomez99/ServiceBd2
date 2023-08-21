@@ -1,14 +1,13 @@
 package ar.unrn.tp.modelo;
 
 import ar.unrn.tp.excepciones.DateException;
-import ar.unrn.tp.excepciones.InvalidCardException;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-@Entity
+@MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 @Setter
 @Getter
@@ -31,7 +30,7 @@ public abstract class Promocion {
     }
 
 
-    protected abstract double aplicarDescuento(List<Producto> productos, String tarjeta);
+    protected abstract double aplicarDescuento(List<Producto> productos, Tarjeta tarjeta);
 
     protected double getTotal(List<Producto> productos) {
         return 0;

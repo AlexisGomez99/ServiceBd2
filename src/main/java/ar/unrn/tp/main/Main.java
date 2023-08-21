@@ -17,7 +17,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws Exception {
         ClienteService clientes= new Clientes();
-        List<Tarjeta> tarjetas;
 
         clientes.agregarCliente("Alexis","Gómez","42456256","ralexisge@gmail.com");
         clientes.agregarCliente("Santiago","Fernandez","43456825","sjf@gmail.com");
@@ -29,12 +28,6 @@ public class Main {
         clientes.agregarTarjeta(1L,"2525 2323 6524 6541","Uala");
         clientes.agregarTarjeta(2L,"6061 2682 7275 7565","MemeCard");
 
-        tarjetas = clientes.listarTarjetas(1L);
-
-        for (Tarjeta t: tarjetas){
-            System.out.println(t.getNombre()+" -> "+t.getNumTarjeta());
-        }
-
         CategoriaService categorias = new Categorias();
 
         categorias.crearCategoria("ROPA DEPORTIVA");
@@ -44,18 +37,8 @@ public class Main {
         categorias.crearCategoria("CALZADO DE INVIERNO");
         categorias.crearCategoria("CALZADO DE VERANO");
 
-        List<Categoria> listaCategorias=categorias.listarCategorias();
-
-        for (Categoria c: listaCategorias){
-            System.out.println(c.getNombreCategoria());
-        }
         categorias.modificarCategoria(7L, "ROPA DE DEPORTE");
         categorias.modificarCategoria(10L,"ROPA DE DEPORTE");
-        listaCategorias=categorias.listarCategorias();
-
-        for (Categoria c: listaCategorias){
-            System.out.println(c.getNombreCategoria());
-        }
 
         ProductoService productos= new Productos();
         MarcaService marcas= new Marcas();

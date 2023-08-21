@@ -22,10 +22,10 @@ public class PromTarjeta extends Promocion{
 
 
     @Override
-    public double aplicarDescuento(List<Producto> productos, String tarjeta) {
+    public double aplicarDescuento(List<Producto> productos, Tarjeta tarjeta) {
         LocalDate hoy= LocalDate.now();
         double total=0;
-        if (hoy.isBefore(this.fechaFin) && hoy.isAfter(this.fechaInicio) && this.tarjeta.equalsIgnoreCase(tarjeta)){
+        if (hoy.isBefore(this.fechaFin) && hoy.isAfter(this.fechaInicio) && tarjeta.equals(this.tarjeta)){
             total = getTotal(productos);
             total = total * this.descuento;
         }

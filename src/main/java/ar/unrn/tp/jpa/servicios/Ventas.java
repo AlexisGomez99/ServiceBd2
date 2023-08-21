@@ -29,34 +29,36 @@ public class Ventas implements VentaService {
             TypedQuery<PromProducto> p = em.createQuery("select p from PromProducto p", PromProducto.class);
             promocions.addAll(p.getResultList());
 
-            Cliente cliente = em.getReference(Cliente.class,idCliente);
-            Tarjeta tarjeta = em.getReference(Tarjeta.class,idTarjeta);
+            Cliente cliente = em.find(Cliente.class,idCliente);
+            Tarjeta tarjeta = em.find(Tarjeta.class,idTarjeta);
             boolean existeTarjeta=false;
-            for (Tarjeta card: cliente.getTarjetas()){
-                if (card.getNumTarjeta().equalsIgnoreCase(tarjeta.getNumTarjeta())) {
-                    existeTarjeta = true;
-                    break;
+            if (cliente !=null && tarjeta !=null && productos != null) {
+                for (Tarjeta card : cliente.getTarjetas()) {
+                    if (card.getNumTarjeta().equalsIgnoreCase(tarjeta.getNumTarjeta())) {
+                        existeTarjeta = true;
+                        break;
+                    }
                 }
-            }
-            if (existeTarjeta){
-                List<Producto> productoRecuperados= new ArrayList<>();
-                for (Long i: productos){
-                    Producto prod= em.getReference(Producto.class,i);
-                    productoRecuperados.add(prod);
+                if (existeTarjeta) {
+                    List<Producto> productoRecuperados = new ArrayList<>();
+                    for (Long i : productos) {
+                        Producto prod = em.getReference(Producto.class, i);
+                        productoRecuperados.add(prod);
+                    }
+                    Carrito carrito = new Carrito(promocions);
+                    carrito.asociarTarjeta(tarjeta);
+                    carrito.asociarCliente(cliente);
+                    carrito.agregarProductos(productoRecuperados);
+                    Venta venta;
+                    try {
+                        venta = carrito.comprarListado();
+                        em.persist(venta);
+                    } catch (NotNullException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    System.out.println("La tarjeta no pertenece al cliente");
                 }
-                Carrito carrito= new Carrito(promocions);
-                carrito.asociarTarjeta(tarjeta);
-                carrito.asociarCliente(cliente);
-                carrito.agregarProductos(productoRecuperados);
-                Venta venta;
-                try {
-                    venta=carrito.comprarListado();
-                    em.persist(venta);
-                } catch (NotNullException e) {
-                    throw new RuntimeException(e);
-                }
-            }else{
-                System.out.println("La tarjeta no pertenece al cliente");
             }
         });
 
@@ -65,27 +67,32 @@ public class Ventas implements VentaService {
     @Override
     public double calcularMonto(List<Long> productos, Long idTarjeta) throws Exception {
         double total=0;
+
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        List<Promocion> promocions = new ArrayList<>();
+        if (productos!=null) {
+            tx.begin();
+            List<Promocion> promocions = new ArrayList<>();
 
-        TypedQuery<PromTarjeta> t = em.createQuery("select p from PromTarjeta p", PromTarjeta.class);
-        promocions.addAll(t.getResultList());
-        TypedQuery<PromProducto> p = em.createQuery("select p from PromProducto p", PromProducto.class);
-        promocions.addAll(p.getResultList());
+            TypedQuery<PromTarjeta> t = em.createQuery("select p from PromTarjeta p", PromTarjeta.class);
+            promocions.addAll(t.getResultList());
+            TypedQuery<PromProducto> p = em.createQuery("select p from PromProducto p", PromProducto.class);
+            promocions.addAll(p.getResultList());
 
-        Tarjeta tarjeta = em.getReference(Tarjeta.class,idTarjeta);
-        List<Producto> productoRecuperados= new ArrayList<>();
-        for (Long i: productos){
-            Producto prod= em.getReference(Producto.class,i);
-            productoRecuperados.add(prod);
+            Tarjeta tarjeta = em.find(Tarjeta.class, idTarjeta);
+            if (tarjeta !=null) {
+                List<Producto> productoRecuperados = new ArrayList<>();
+                for (Long i : productos) {
+                    Producto prod = em.getReference(Producto.class, i);
+                    productoRecuperados.add(prod);
+                }
+                Carrito carrito = new Carrito(promocions);
+                carrito.asociarTarjeta(tarjeta);
+                carrito.agregarProductos(productoRecuperados);
+                total = carrito.calcularDescuento();
+            }
+            tx.commit();
         }
-        Carrito carrito= new Carrito(promocions);
-        carrito.asociarTarjeta(tarjeta);
-        carrito.agregarProductos(productoRecuperados);
-        total=carrito.calcularDescuento();
-        tx.commit();
         return total;
     }
 

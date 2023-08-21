@@ -44,7 +44,7 @@ public class Carrito {
         double total= 0;
         if (servicio.esValida(tarjeta)){
             total = this.promocions.stream()
-                    .mapToDouble(prom -> prom.aplicarDescuento(this.productoList, this.tarjeta.getNombre()))
+                    .mapToDouble(prom -> prom.aplicarDescuento(this.productoList, this.tarjeta))
                     .sum();
 
         }else {

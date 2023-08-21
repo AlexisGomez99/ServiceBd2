@@ -5,6 +5,7 @@ import ar.unrn.tp.excepciones.NotNumException;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.jdo.annotations.Unique;
 import javax.persistence.*;
 import java.time.LocalDate;
 @Setter
@@ -15,12 +16,14 @@ public class Producto {
     @Id
     @GeneratedValue
     private Long id;
+    @Unique
     private String codigo;
     private String descripcion;
 
+    @OneToOne
     private Categoria categoria;
     private double precio;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     private Marca marca;
 
     public Producto(String codigo, String descripcion, double precio, Categoria categoria , Marca marca) throws NotNullException {
@@ -38,11 +41,11 @@ public class Producto {
         this.marca = marca;
     }
 
-    public double verificarDescontar(String marcaN, double descuento) {
-        double desc=0;
+    public boolean esDeMarca(String marcaN) {
+        boolean x=false;
         if(this.marca.getNombre().equalsIgnoreCase(marcaN)){
-            desc = (precio * descuento);
+            x = true;
         }
-        return desc;
+        return x;
     }
 }

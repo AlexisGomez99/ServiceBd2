@@ -16,6 +16,7 @@ public class Venta {
     @GeneratedValue
     private Long id;
     private LocalDate fechaVenta;
+    @OneToOne
     private Cliente cliente;
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<ProductoVendido> listaProductos;

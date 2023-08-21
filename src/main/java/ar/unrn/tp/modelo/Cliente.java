@@ -6,6 +6,7 @@ import ar.unrn.tp.excepciones.NotNumException;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.jdo.annotations.Unique;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class Cliente {
     private Long id;
     private String nombre;
     private String apellido;
+    @Unique
     private String dni;
     private String email;
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

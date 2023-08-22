@@ -3,6 +3,7 @@ package ar.unrn.tp.modelo;
 import ar.unrn.tp.excepciones.NotNullException;
 import ar.unrn.tp.excepciones.NotNumException;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.jdo.annotations.Unique;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @Entity
+@NoArgsConstructor
 public class Producto {
 
     @Id

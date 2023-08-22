@@ -1,12 +1,14 @@
 package ar.unrn.tp.modelo;
 
 import ar.unrn.tp.excepciones.DateException;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import java.time.LocalDate;
 
 import java.util.List;
 @Entity
+@NoArgsConstructor
 public class PromProducto extends Promocion{
     private String marca;
 

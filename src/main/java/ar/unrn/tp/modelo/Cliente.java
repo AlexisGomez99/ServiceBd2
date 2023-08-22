@@ -4,6 +4,7 @@ import ar.unrn.tp.excepciones.EmailException;
 import ar.unrn.tp.excepciones.NotNullException;
 import ar.unrn.tp.excepciones.NotNumException;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.jdo.annotations.Unique;
@@ -16,6 +17,7 @@ import java.util.regex.Pattern;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Cliente {
     @Id
     @GeneratedValue

@@ -2,6 +2,7 @@ package ar.unrn.tp.modelo;
 
 import ar.unrn.tp.excepciones.DateException;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Setter
 @Getter
+@NoArgsConstructor
 public abstract class Promocion {
     @Id
     @GeneratedValue

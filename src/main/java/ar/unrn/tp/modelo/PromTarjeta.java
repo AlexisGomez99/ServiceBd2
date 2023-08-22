@@ -2,6 +2,7 @@ package ar.unrn.tp.modelo;
 
 import ar.unrn.tp.excepciones.DateException;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class PromTarjeta extends Promocion{
 
     private String tarjeta;

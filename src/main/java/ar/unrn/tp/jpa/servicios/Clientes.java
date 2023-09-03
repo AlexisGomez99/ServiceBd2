@@ -8,10 +8,7 @@ import ar.unrn.tp.modelo.Cliente;
 import ar.unrn.tp.modelo.Tarjeta;
 import org.junit.jupiter.api.AfterAll;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -19,23 +16,29 @@ public class Clientes implements ClienteService {
 
     private final EntityManagerFactory emf;
 
-    public Clientes() {
-        emf = Persistence.createEntityManagerFactory("objectdb:myDbTestFile.tmp;drop");
+    public Clientes(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
     @Override
     public void agregarCliente(String nombre, String apellido, String dni, String email) {
         inTransactionExecute((em) -> {
+
+            TypedQuery<Cliente> q = em.createQuery("SELECT c FROM Cliente c WHERE c.dni = :dni", Cliente.class);
+            q.setParameter("dni", dni);
+            List<Cliente> clientes = q.getResultList();
+
+            if (!clientes.isEmpty())
+                throw new RuntimeException("Ya existe un usuario con ese dni");
             Cliente cliente= null;
             try {
-                cliente = new Cliente(nombre,apellido,dni,email);
-            } catch (NotNullException e) {
-                throw new RuntimeException(e);
+                cliente = cliente = new Cliente(nombre,apellido,dni,email);
             } catch (NotNumException e) {
                 throw new RuntimeException(e);
             } catch (EmailException e) {
                 throw new RuntimeException(e);
             }
+
             em.persist(cliente);
         });
     }
@@ -45,18 +48,13 @@ public class Clientes implements ClienteService {
 
             Cliente cliente = em.find(Cliente.class,idCliente);
             if(cliente != null) {
-                if (!cliente.getNombre().equalsIgnoreCase(nombre) && nombre != null)
-                    cliente.setNombre(nombre);
-                if (!cliente.getApellido().equalsIgnoreCase(apellido) && apellido != null)
-                    cliente.setApellido(apellido);
-                if (!cliente.getDni().equalsIgnoreCase(dni) && dni != null)
-                    cliente.setDni(dni);
-                if (!cliente.getEmail().equalsIgnoreCase(email) && email != null)
-                    cliente.setEmail(email);
+                cliente.setCliente(nombre,apellido,dni,email);
                 em.persist(cliente);
             }
             else
-                System.out.println("El cliente no existe");
+                throw new RuntimeException("El cliente no existe");
+
+
 
 
 

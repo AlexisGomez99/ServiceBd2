@@ -1,5 +1,7 @@
 package ar.unrn.tp.api;
 
+import ar.unrn.tp.excepciones.NotNullException;
+
 import java.util.List;
 
 public interface ProductoService {

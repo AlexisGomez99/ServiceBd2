@@ -8,6 +8,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 @Setter
@@ -36,5 +38,18 @@ public abstract class Promocion {
 
     protected double getTotal(List<Producto> productos) {
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Promocion)) return false;
+        Promocion promocion = (Promocion) o;
+        return Double.compare(promocion.getDescuento(), getDescuento()) == 0 && getFechaInicio().equals(promocion.getFechaInicio()) && getFechaFin().equals(promocion.getFechaFin());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFechaInicio(), getFechaFin(), getDescuento());
     }
 }

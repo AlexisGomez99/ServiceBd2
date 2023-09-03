@@ -14,8 +14,8 @@ public class Ventas implements VentaService {
 
     private final EntityManagerFactory emf;
 
-    public Ventas() {
-        emf = Persistence.createEntityManagerFactory("objectdb:myDbTestFile.tmp;drop");
+    public Ventas(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
     @Override
@@ -31,8 +31,17 @@ public class Ventas implements VentaService {
 
             Cliente cliente = em.find(Cliente.class,idCliente);
             Tarjeta tarjeta = em.find(Tarjeta.class,idTarjeta);
+            if (cliente == null) {
+                throw new RuntimeException("El cliente no existe");
+            }
+            if (tarjeta == null){
+                throw new RuntimeException("No existe la tarjeta solicitada");
+            }
+            if (productos==null || productos.isEmpty()) {
+                throw new RuntimeException("No hay productos para esta lista");
+            }
             boolean existeTarjeta=false;
-            if (cliente !=null && tarjeta !=null && productos != null) {
+
                 for (Tarjeta card : cliente.getTarjetas()) {
                     if (card.getNumTarjeta().equalsIgnoreCase(tarjeta.getNumTarjeta())) {
                         existeTarjeta = true;
@@ -57,9 +66,9 @@ public class Ventas implements VentaService {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    System.out.println("La tarjeta no pertenece al cliente");
+                    throw new RuntimeException("La tarjeta no pertenece al cliente");
                 }
-            }
+
         });
 
     }
@@ -70,7 +79,14 @@ public class Ventas implements VentaService {
 
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
-        if (productos!=null) {
+        Tarjeta tarjeta = em.find(Tarjeta.class, idTarjeta);
+        if (tarjeta == null){
+            throw new RuntimeException("La tarjeta solicitada no existe");
+        }
+        if (productos==null || productos.isEmpty()) {
+            throw new RuntimeException("No hay productos para esta lista");
+        }
+
             tx.begin();
             List<Promocion> promocions = new ArrayList<>();
 
@@ -79,8 +95,8 @@ public class Ventas implements VentaService {
             TypedQuery<PromProducto> p = em.createQuery("select p from PromProducto p", PromProducto.class);
             promocions.addAll(p.getResultList());
 
-            Tarjeta tarjeta = em.find(Tarjeta.class, idTarjeta);
-            if (tarjeta !=null) {
+
+
                 List<Producto> productoRecuperados = new ArrayList<>();
                 for (Long i : productos) {
                     Producto prod = em.getReference(Producto.class, i);
@@ -90,14 +106,14 @@ public class Ventas implements VentaService {
                 carrito.asociarTarjeta(tarjeta);
                 carrito.agregarProductos(productoRecuperados);
                 total = carrito.calcularDescuento();
-            }
+
             tx.commit();
-        }
+
         return total;
     }
 
     @Override
-    public List ventas() {
+    public List<Venta> ventas() {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
@@ -105,7 +121,6 @@ public class Ventas implements VentaService {
 
         TypedQuery<Venta> t = em.createQuery("select v from Venta v", Venta.class);
         ventas.addAll(t.getResultList());
-
         tx.commit();
         return ventas;
     }

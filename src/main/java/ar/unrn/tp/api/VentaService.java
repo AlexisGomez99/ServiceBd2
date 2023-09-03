@@ -1,5 +1,7 @@
 package ar.unrn.tp.api;
 
+import ar.unrn.tp.modelo.Venta;
+
 import java.util.List;
 
 public interface VentaService {
@@ -18,5 +20,5 @@ public interface VentaService {
 
     //Devuelve todas las ventas realizadas
 
-    List ventas();
+    List<Venta> ventas();
 }

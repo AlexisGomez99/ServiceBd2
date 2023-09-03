@@ -13,8 +13,8 @@ public class Descuentos implements DescuentoService {
 
     private final EntityManagerFactory emf;
 
-    public Descuentos() {
-        emf = Persistence.createEntityManagerFactory("objectdb:myDbTestFile.tmp;drop");
+    public Descuentos(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
     @Override

@@ -46,7 +46,6 @@ public class Carrito {
             total = this.promocions.stream()
                     .mapToDouble(prom -> prom.aplicarDescuento(this.productoList, this.tarjeta))
                     .sum();
-
         }else {
             throw new NotNullException("Tarjeta");
         }

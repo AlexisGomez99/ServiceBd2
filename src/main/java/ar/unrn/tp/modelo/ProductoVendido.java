@@ -38,7 +38,7 @@ public class ProductoVendido {
         if (this == o) return true;
         if (!(o instanceof ProductoVendido)) return false;
         ProductoVendido that = (ProductoVendido) o;
-        return getCodigo() == that.getCodigo() && Double.compare(that.getPrecio(), getPrecio()) == 0 && getDescripcion().equals(that.getDescripcion()) && getCategoria() == that.getCategoria() && getMarca().equals(that.getMarca());
+        return Double.compare(that.getPrecio(), getPrecio()) == 0 && getCodigo().equals(that.getCodigo()) && getDescripcion().equals(that.getDescripcion()) && getCategoria().equals(that.getCategoria()) && getMarca().equals(that.getMarca());
     }
 
     @Override

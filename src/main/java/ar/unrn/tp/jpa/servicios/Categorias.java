@@ -12,8 +12,8 @@ public class Categorias implements CategoriaService {
 
     private final EntityManagerFactory emf;
 
-    public Categorias() {
-        emf = Persistence.createEntityManagerFactory("objectdb:myDbTestFile.tmp;drop");
+    public Categorias(EntityManagerFactory emf) {
+        this.emf=emf;
     }
 
 

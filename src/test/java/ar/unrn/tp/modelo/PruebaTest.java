@@ -1,18 +1,25 @@
-package ar.unrn.tp.test;
+package ar.unrn.tp.modelo;
 import ar.unrn.tp.excepciones.DateException;
 import ar.unrn.tp.excepciones.EmailException;
 import ar.unrn.tp.excepciones.NotNullException;
 import ar.unrn.tp.excepciones.NotNumException;
-import ar.unrn.tp.modelo.*;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.List;
 
 public class PruebaTest   {
+
+    @BeforeEach
+    private EntityManagerFactory setUpEmf(){
+        return Persistence.createEntityManagerFactory("objectdb:TestingFile.tmp;drop");
+    }
     @Test
     public void montoTotalSinDescuentos() throws EmailException, NotNullException, NotNumException, DateException {
 
@@ -26,8 +33,8 @@ public class PruebaTest   {
 
         Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
         cliente.setTarjeta(tarjeta);
-        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.05);
-        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.08);
+        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.08);
+        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.05);
         List<Promocion> promociones = new ArrayList<>();
         promociones.add(promTarjeta);
         promociones.add(promProducto);
@@ -62,8 +69,8 @@ public class PruebaTest   {
         Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
 
         cliente.setTarjeta(tarjeta);
-        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.05);
-        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(1),0.08);
+        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.08);
+        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(1),0.05);
         List<Promocion> promociones = new ArrayList<>();
         promociones.add(promTarjeta);
         promociones.add(promProducto);
@@ -75,7 +82,7 @@ public class PruebaTest   {
         carrito.agregarProducto(prod2);
         carrito.agregarProducto(prod3);
 
-        double montoEsperado= 920;
+        double montoEsperado= 950;
 
         //Ejercitacion
 
@@ -98,8 +105,8 @@ public class PruebaTest   {
         Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
 
         cliente.setTarjeta(tarjeta);
-        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.05);
-        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.08);
+        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.08);
+        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().plusMonths(1),LocalDate.now().plusMonths(2),0.05);
         List<Promocion> promociones = new ArrayList<>();
         promociones.add(promTarjeta);
         promociones.add(promProducto);
@@ -110,7 +117,7 @@ public class PruebaTest   {
         carrito.agregarProducto(prod2);
         carrito.agregarProducto(prod3);
 
-        double montoEsperado= 950;
+        double montoEsperado= 920;
 
         //Ejercitacion
 
@@ -133,8 +140,8 @@ public class PruebaTest   {
         Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
 
         cliente.setTarjeta(tarjeta);
-        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.05);
-        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.08);
+        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.08);
+        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.05);
         List<Promocion> promociones = new ArrayList<>();
         promociones.add(promTarjeta);
         promociones.add(promProducto);
@@ -169,8 +176,8 @@ public class PruebaTest   {
         Cliente cliente = new Cliente("Alexis","Gomez","42456256","ralexisge@gmail.com");
 
         cliente.setTarjeta(tarjeta);
-        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.05);
-        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.08);
+        PromTarjeta promTarjeta = new PromTarjeta(tarjeta.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.08);
+        PromProducto promProducto = new PromProducto(marca.getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(2),0.05);
         List<Promocion> promociones = new ArrayList<>();
         promociones.add(promTarjeta);
         promociones.add(promProducto);
@@ -183,10 +190,9 @@ public class PruebaTest   {
         carrito.agregarProducto(prod3);
 
         //Ejercitacion
-        Venta venta= new Venta(LocalDate.now(),cliente,carrito.getProductoList(),870);//Consultar
+        Venta venta= new Venta(LocalDate.now(),cliente,carrito.getProductoList(),870);
         Venta orden= carrito.comprarListado();
         //Verificacion
-        //consultar comparar con equals dentro de la clase venta
         Assert.assertEquals(true,venta.equals(orden));
     }
 
@@ -215,7 +221,7 @@ public class PruebaTest   {
         // Ejercitación
         try{
             new Cliente("Alexis",null,null,null);
-        }catch(NotNullException | NotNumException | EmailException e){
+        }catch( NotNumException | EmailException e){
             saltoExcepcion = true;
         }
         // Verificación
@@ -229,7 +235,7 @@ public class PruebaTest   {
 
         // Ejercitación
         try{
-            PromProducto promProducto = new PromProducto(new Marca("Si").getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(-2),0.08);
+            PromProducto promProducto = new PromProducto(new Marca("Si").getNombre(),LocalDate.now().minusDays(1),LocalDate.now().plusMonths(-2),0.05);
 
         }catch(DateException e){
             saltoExcepcion = true;

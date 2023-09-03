@@ -13,8 +13,8 @@ public class Marcas implements MarcaService {
 
     private final EntityManagerFactory emf;
 
-    public Marcas() {
-        emf = Persistence.createEntityManagerFactory("objectdb:myDbTestFile.tmp;drop");
+    public Marcas(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
 

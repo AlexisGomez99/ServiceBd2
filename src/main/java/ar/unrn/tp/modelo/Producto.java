@@ -9,6 +9,8 @@ import lombok.Setter;
 import javax.jdo.annotations.Unique;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
+
 @Setter
 @Getter
 @Entity
@@ -35,6 +37,8 @@ public class Producto {
             throw new NotNullException("precio");
         if (categoria == null)
             throw new NotNullException("categoria");
+        if (marca == null)
+            throw new NotNullException("marca");
 
         this.codigo = codigo;
         this.descripcion = descripcion;
@@ -49,5 +53,45 @@ public class Producto {
             x = true;
         }
         return x;
+    }
+
+    public void modificarProducto(String codigo, String descripcion, double precio, Categoria categoria, Marca marca) {
+        if (!getCodigo().equalsIgnoreCase(codigo) && codigo != null)
+            setCodigo(codigo);
+        if (!getDescripcion().equalsIgnoreCase(descripcion) && descripcion != null)
+            setDescripcion(descripcion);
+        if (getPrecio() == precio && precio > 0)
+            setPrecio(precio);
+        if (!categoria.equals(getCategoria()) && categoria != null) {
+            setCategoria(categoria);
+        }
+        if (!marca.equals(getCategoria()) && marca != null) {
+            setMarca(marca);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Producto)) return false;
+        Producto producto = (Producto) o;
+        return Double.compare(producto.getPrecio(), getPrecio()) == 0 && getCodigo().equals(producto.getCodigo()) && getDescripcion().equals(producto.getDescripcion()) && getCategoria().equals(producto.getCategoria()) && getMarca().equals(producto.getMarca());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCodigo(), getDescripcion(), getCategoria(), getPrecio(), getMarca());
+    }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "id=" + id +
+                ", codigo='" + codigo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", categoria=" + categoria +
+                ", precio=" + precio +
+                ", marca=" + marca +
+                '}';
     }
 }

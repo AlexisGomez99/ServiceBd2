@@ -1,7 +1,6 @@
 package ar.unrn.tp.modelo;
 
 import ar.unrn.tp.excepciones.EmailException;
-import ar.unrn.tp.excepciones.NotNullException;
 import ar.unrn.tp.excepciones.NotNumException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +10,7 @@ import javax.jdo.annotations.Unique;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,20 +30,13 @@ public class Cliente {
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Tarjeta> tarjetas;
 
-    public Cliente(String nombre, String apellido, String dni, String email) throws NotNullException, NotNumException, EmailException {
+    public Cliente(String nombre, String apellido, String dni, String email) throws NotNumException, EmailException {
         Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        if (nombre == null)
-            throw new NotNullException("nombre");
-        if (apellido == null)
-            throw new NotNullException("apellido");
-        if (email == null)
-            throw new NotNullException("email");
-        if (dni == null)
-            throw new NotNullException("DNI");
+        if (dni == null || dni.isEmpty() || nombre == null || nombre.isEmpty() || apellido == null || apellido.isEmpty() ) {
+            throw new RuntimeException("Los datos proporcionados no son válidos");
+        }
         if (!isNumeric(dni))
             throw new NotNumException();
-
-
         Matcher mather = pattern.matcher(email);
         if (mather.find() == false)
             throw new EmailException();
@@ -74,5 +67,30 @@ public class Cliente {
          this.tarjetas = new ArrayList<>();
          agregarTarjeta(tarjeta);
         }
+    }
+
+    public void setCliente(String nombre, String apellido, String dni, String email) {
+
+        if (!getNombre().equalsIgnoreCase(nombre) && nombre != null)
+            setNombre(nombre);
+        if (!getApellido().equalsIgnoreCase(apellido) && apellido != null)
+            setApellido(apellido);
+        if (!getDni().equalsIgnoreCase(dni) && dni != null)
+            setDni(dni);
+        if (!getEmail().equalsIgnoreCase(email) && email != null)
+            setEmail(email);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cliente)) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(getNombre(), cliente.getNombre()) && Objects.equals(getApellido(), cliente.getApellido()) && Objects.equals(getDni(), cliente.getDni()) && Objects.equals(getEmail(), cliente.getEmail());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNombre(), getApellido(), getDni(), getEmail());
     }
 }

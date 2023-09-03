@@ -3,7 +3,6 @@ package ar.unrn.tp.jpa.servicios;
 import ar.unrn.tp.api.ProductoService;
 import ar.unrn.tp.excepciones.NotNullException;
 import ar.unrn.tp.modelo.Categoria;
-import ar.unrn.tp.modelo.Cliente;
 import ar.unrn.tp.modelo.Marca;
 import ar.unrn.tp.modelo.Producto;
 import org.junit.jupiter.api.AfterAll;
@@ -16,8 +15,8 @@ public class Productos implements ProductoService {
 
     private final EntityManagerFactory emf;
 
-    public Productos() {
-        emf = Persistence.createEntityManagerFactory("objectdb:myDbTestFile.tmp;drop");
+    public Productos(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
 
@@ -28,14 +27,16 @@ public class Productos implements ProductoService {
             Marca marca = em.find(Marca.class,IdMarca);
             Producto producto= null;
             if (marca != null && categoria != null) {
+
                 try {
                     producto = new Producto(codigo, descripcion, precio, categoria, marca);
                 } catch (NotNullException e) {
                     throw new RuntimeException(e);
                 }
+
             }
             else
-                System.out.println("La marca o categoria no existe.");
+                throw new RuntimeException("La marca o categoria no es valida.");
             em.persist(producto);
         });
     }
@@ -47,25 +48,12 @@ public class Productos implements ProductoService {
             Producto producto = em.find(Producto.class, idProducto);
 
             if (producto!= null) {
-                if (!producto.getCodigo().equalsIgnoreCase(codigo) && codigo != null)
-                    producto.setCodigo(codigo);
-                if (!producto.getDescripcion().equalsIgnoreCase(descripcion) && descripcion != null)
-                    producto.setDescripcion(descripcion);
-                if (producto.getPrecio() == precio && precio > 0)
-                    producto.setPrecio(precio);
-
                 Categoria categoria = em.getReference(Categoria.class, IdCategoría);
-                if (!categoria.equals(producto.getCategoria()) && IdCategoría != null) {
-                    producto.setCategoria(categoria);
-                }
-
                 Marca marca = em.getReference(Marca.class, IdMarca);
-                if (!marca.equals(producto.getCategoria()) && IdCategoría != null) {
-                    producto.setMarca(marca);
-                }
+                producto.modificarProducto(codigo,descripcion,precio,categoria,marca);
             }
             else
-                System.out.println("El producto no existe");
+                throw new RuntimeException("El producto no existe");
 
             em.persist(producto);
         });
